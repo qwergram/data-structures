@@ -18,8 +18,8 @@ class LinkedList(object):
     """A class wrapper with Node linking methods."""
     tail = None
 
-    def __init__(self, initial_values):
-        """Build a LinkedList of specified Nodes."""
+    def __init__(self, initial_values=[]):
+        """Build a LinkedList of specified Nodes out of non-list values."""
         if not isinstance(initial_values, list):
             initial_values = [initial_values]
         for item in initial_values:
@@ -40,11 +40,17 @@ class LinkedList(object):
         cursor = self.tail
         previous = None
         if self.tail:
+            if self.tail.pointer is None:
+                previous = self.tail.value
+                self.tail = None
+                return previous
             while cursor.pointer:
                 previous = cursor
                 cursor = cursor.pointer
             previous.pointer = None
             return cursor.value
+        else:
+            raise IndexError("No list to pop from")
 
     def size(self):
         """Return length of Node chain."""
@@ -83,13 +89,14 @@ class LinkedList(object):
     def display(self):
         """Print and return formatted string displaying Node Chain."""
         cursor = self.tail
-        cool_string = u"("
+        cool_string = u""
         while cursor:
             if isinstance(cursor.value, str):
                 cool_string += u"'{}', ".format(cursor.value)
             else:
                 cool_string += u"{}, ".format(cursor.value)
             cursor = cursor.pointer
-        cool_string = cool_string[:-2] + u')'
-        print(cool_string)
+        if cool_string:
+            cool_string = u'(' + cool_string[:-2] + u')'
+            print(cool_string)
         return cool_string

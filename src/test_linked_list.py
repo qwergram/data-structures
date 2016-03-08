@@ -49,7 +49,7 @@ def test_LinkedList_constructor():
 def test_LinkedList_pop():
     """Test LinkedList.pop for head removal."""
     from linked_list import LinkedList
-    input_ = [1, 2, 3]
+    input_ = [1]
     linked_list_instance = LinkedList(input_)
     assert linked_list_instance.pop() == 1
 
@@ -138,8 +138,28 @@ def test_LinkedList_remove_last():
 
 
 def test_LinkedList_display():
-    """Test LinkedList.dispaly for proper string formatting."""
+    """Test LinkedList.display for proper string formatting."""
     from linked_list import LinkedList
     input_ = "a b c".split()
     linked_list_instance = LinkedList(input_)
     assert linked_list_instance.display() == "('c', 'b', 'a')"
+
+
+def test_Stack_push():
+    """Test Stack. push method."""
+    from stack import Stack
+    input_ = ['sad']
+    stack_instance = Stack(input_)
+    stack_instance.push('happy')
+    assert stack_instance.tail.value == 'happy'
+    assert stack_instance.tail.pointer.value == 'sad'
+
+
+def test_Stack_pop():
+    """Test Stack.pop method."""
+    from stack import Stack
+    input_ = [1]
+    stack_instance = Stack(input_)
+    assert stack_instance.pop() == 1
+
+
