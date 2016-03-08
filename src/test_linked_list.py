@@ -11,6 +11,15 @@ def test_LinkedList_construct_empty_list():
     assert linked_list_instance.tail == Node([], None)
 
 
+def test_LinkedList_construct_integer():
+    """Test LinkedList insert command works with empty list"""
+    from linnked_list import LinkedList, Node
+    input_ = 5
+    linked_list_instance = LinkedList(input_)
+
+    assert linked_list_instance.tail == Node(5, None)
+
+
 def test_LinkedList_insert():
     """Test LinkedList insert command works correctly"""
     from linked_list import LinkedList, Node
