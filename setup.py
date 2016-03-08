@@ -2,8 +2,8 @@
 from setuptools import setup
 
 setup(
-    name="mailroom",
-    description="Python 401 Mail Room Madness",
+    name="linked_list",
+    description="Python 401 Linked_list",
     version=0.1,
     author=["Nadia Bahrami", "Norton Pengra"],
     author_email=["nadia.bahrami@gmail.com"],
