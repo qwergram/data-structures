@@ -2,6 +2,8 @@
 """Test LinkedList for random inputs"""
 
 
+def test_LinkedList_
+
 def test_LinkedList_insert():
     """Test LinkedList insert command works correctly"""
     from linked_list import LinkedList, Node
@@ -64,7 +66,7 @@ def test_LinkedList_remove():
     from linked_list import LinkedList, Node
     input_ = 'a b c'.split()
     linked_list_instance = LinkedList(input_)
-    linked_list_instance.remove('b')
+    linked_list_instance.remove(Node('b'))
     assert linked_list_instance.tail.value == Node('c', Node('a', None)).value
     assert linked_list_instance.tail.pointer.value == Node('c', Node('a', None)).pointer.value
 
