@@ -2,6 +2,22 @@
 """Test LinkedList for random inputs"""
 
 
+def test_LinkedList_insert():
+    """Test LinkedList insert command works correctly"""
+    from linked_list import LinkedList, Node
+    input_ = [1, 2]
+    linked_list_instance = LinkedList(input_)
+
+    # Assert that the LinkedList is initializing properly
+
+    assert linked_list_instance.tail == Node(2, Node(1, None)).value
+    assert linked_list_instance.tail.pointer.value == Node(2, Node(1, None)).pointer.value
+
+    linked_list_instance.insert("a")
+
+    assert linked_list_instance.tail.pointer.pointer.value == Node(2, Node(1, Node("a", None))).pointer.pointer.value
+
+
 def test_LinkedList_constructor():
     """Test LinkedList contstructor for functionality"""
     from linked_list import LinkedList, Node
@@ -14,7 +30,7 @@ def test_LinkedList_constructor():
     assert linked_list_instance.tail.pointer.pointer is None
 
 
-def test_LinkedList_pop():
+def test_LinkedList_pop():  # This never actually tests "pop"
     """Test LinkedList.pop for head removal"""
     from linked_list import LinkedList, Node
     input_ = [1, 2, 3]
