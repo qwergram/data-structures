@@ -55,6 +55,14 @@ def test_LinkedList_pop():  # This never actually tests "pop"
     linked_list_instance = LinkedList(input_)
     assert linked_list_instance.tail.value == Node(3, Node(2, Node(1, None))).value
 
+def test_LinkedList_insert():
+    """Test LinkeList.insert for tail addition to Node list"""
+    from linked_list import LinkedList, Node
+    input_ = [1, 2, 3]
+    linked_list_instance = LinkedList(input_)
+    linked_list_instance.insert("Nadia is awesome")
+    assert linked_list_instance.tail.value == "Nadia is awesome"
+
 
 def test_LinkedList_size():
     """Test LinkedList.size for proper length return"""
