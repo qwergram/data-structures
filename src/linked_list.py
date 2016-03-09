@@ -16,6 +16,7 @@ class Node(object):
 
 class LinkedList(object):
     """A class wrapper with Node linking methods."""
+
     tail = None
 
     def __init__(self, initial_values=[]):
@@ -39,8 +40,8 @@ class LinkedList(object):
         """Return and remove head from Linked Node list."""
         cursor = self.tail
         previous = None
-        if self.tail:
-            if self.tail.pointer is None:
+        if cursor:
+            if cursor.pointer is None:
                 previous = self.tail.value
                 self.tail = None
                 return previous
