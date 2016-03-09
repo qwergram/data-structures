@@ -5,7 +5,7 @@
 class Node(object):
     """A class inheriting object that holds a value and pointer."""
 
-    def __init__(self, value=None, pointer=None):
+    def __init__(self, value, pointer=None):
         """Build a Node object with specified value and pointer."""
         if pointer is None or isinstance(pointer, Node):
             self.pointer = pointer
