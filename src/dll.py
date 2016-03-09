@@ -5,7 +5,7 @@
 class DllNode(object):
     """Node class utilizing Node parent class."""
 
-    def __init__(self, value=None, pointer=None, previous=None):
+    def __init__(self, value, pointer=None, previous=None):
         """Intialize DLL Node."""
         if pointer is None or isinstance(pointer, DllNode):
             self.pointer = pointer
