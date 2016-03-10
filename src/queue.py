@@ -13,3 +13,36 @@
 
     This queue follows a logic of first in, first out.
 """
+
+class Node(object):
+
+    def __init__(self, value, next, prev):
+
+        # Require the user to explicitly state the pointers
+        # as per zen of python line 2 (python -m this)
+        self.value = value
+        self.next = next  # In other words: pointer towards the tail
+        self.prev = prev  # In other words: previous towards the head
+
+
+class Queue(object):
+
+    head = None
+    tail = None
+
+    def dequeue(self, value):
+        """Dequeue the specified item from the node chain and rebind the Nodes agian"""
+        current_node = self.head
+        previous_node = None
+        while current_node is not None:
+            if current_node.value == value:
+                if previous_node is not None:
+                    previous_node.next = current_node.next
+                    previous_node.next.prev = previous_node
+                else:
+                    self.head = current_node.next
+                break
+            previous_node = current_node
+            current_node = current_node.next
+        else:
+            raise ValueError("Item was not found in list!")
