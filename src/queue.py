@@ -16,9 +16,10 @@
 
 
 class Node(object):
-    """Classify a NodeObject that points to two different objects"""
-    def __init__(self, value, next, prev):
+    """Classify a NodeObject that points to two different objects."""
 
+    def __init__(self, value, next, prev):
+        """Initialize node."""
         self.value = value
         self.next = next
         self.prev = prev
@@ -39,7 +40,7 @@ class Queue(object):
             raise TypeError("Please package your item into a list!")
 
     def enqueue(self, value):
-        """Enqueue a value to the tail of the linked list"""
+        """Enqueue a value to the tail of the linked list."""
         new_node = Node(value, None, None)
         if self.head is None:
             self.head = self.tail = new_node
@@ -50,7 +51,7 @@ class Queue(object):
             self.tail = new_node
 
     def dequeue(self, value):
-        """Dequeue the specified item from the node chain and rebind the Nodes agian"""
+        """Dequeue the specified item from the node chain and rebind the Nodes agian."""
         current_node = self.head
         previous_node = None
         if self.tail is not None and self.tail.value == value:
@@ -72,3 +73,14 @@ class Queue(object):
                 current_node = current_node.next
             else:
                 raise ValueError("Item was not found in list!")
+
+    def size(self):
+        """Return the size of the queue."""
+        if self.tail is None:
+            return 0
+        cursor = self.tail
+        count = 1
+        while cursor.pointer:
+            count += 1
+            cursor = cursor.pointer
+        return count
