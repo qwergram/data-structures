@@ -80,7 +80,7 @@ class Queue(object):
             return 0
         cursor = self.tail
         count = 1
-        while cursor.pointer:
+        while cursor.prev:
             count += 1
-            cursor = cursor.pointer
+            cursor = cursor.prev
         return count
