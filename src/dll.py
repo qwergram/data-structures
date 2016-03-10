@@ -24,10 +24,24 @@ class Dll(object):
         """Build a DLL of specified Nodes out of non-list values."""
         if not isinstance(initial_values, list):
             initial_values = [initial_values]
-        previous = None
         for item in initial_values:
-            self.tail = DllNode(item, self.tail, previous)
-            previous = item
+            initial = DllNode(item, pointer=self.tail, previous=None)
+            current = DllNode(item, pointer=initial, previous=None)
+            initial.previous = current
+            self.tail = current
+
+    def display(self):
+        """Print and return formatted string displaying Node Chain."""
+        cursor = self.tail
+        cool_string = u""
+        while cursor:
+            cool_string += u"'{}', ".format(cursor.value)
+            cursor = cursor.pointer
+        if cool_string:
+            cool_string = u'(' + cool_string[:-2] + u')'
+            print(cool_string)
+        return cool_string
+
 
     def insert(self, val):
         """Insert value into DL Node list."""
@@ -36,7 +50,7 @@ class Dll(object):
             while cursor.pointer:
                 previous = cursor
                 cursor = cursor.pointer
-            cursor.pointer = DllNode(val, None, previous)
+            cursor.pointer = DllNode(val, pointer=None, previous=previous)
         else:
             self.tail = DllNode(val)
 
