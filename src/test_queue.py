@@ -63,3 +63,19 @@ def test_queue_enqueue_pointer_prev(alpha_list):
     """Test the tail prev pointer if the enqueue is working correctly."""
     alpha_list.enqueue("g")
     assert alpha_list.tail.prev.value == "f"
+
+
+def test_queue_size_long():
+    """Test Queue.size for proper length return."""
+    from queue import Queue
+    input_ = list(range(75))
+    queue_instance = Queue(input_)
+    assert queue_instance.size() == len(input_)
+
+
+def test_queue_size_empty():
+    """Test Queue.size for proper length return."""
+    from queue import Queue
+    input_ = []
+    queue_instance = Queue(input_)
+    assert queue_instance.size() == len(input_)
