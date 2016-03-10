@@ -79,3 +79,13 @@ def test_queue_size_empty():
     input_ = []
     queue_instance = Queue(input_)
     assert queue_instance.size() == len(input_)
+
+
+def test_queue_peek(alpha_list):
+    """Test peek functionality returns head."""
+    assert alpha_list.peek() == 'a'
+
+
+def test_queue_peek_emtpy(empty_list):
+    """Test peek functionality returns None."""
+    assert empty_list.peek() is None

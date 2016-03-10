@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Create a Queue object that fits the definition defined here:
     http://www.princeton.edu/~achaney/tmve/wiki100k/docs/Queue_(data_structure).html
-
+    http://ls.pwd.io/2014/08/singly-and-doubly-linked-lists-in-python/
     It should have the following methods:
 
     .enqueue(value): Add a value to the queue
@@ -84,3 +84,8 @@ class Queue(object):
             count += 1
             cursor = cursor.prev
         return count
+
+    def peek(self):
+        """Return next item in queue without removing it."""
+        if self.head:
+            return self.head.value
