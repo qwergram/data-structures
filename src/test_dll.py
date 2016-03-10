@@ -111,57 +111,53 @@ def test_dll_pop_empty(empty_list):
 
 
 def test_dll_shift_return(alpha_list):
+    """Test the return value if the shift is working correctly"""
     assert alpha_list.shift().value == 'f'
 
 
 def test_dll_shift_head(alpha_list):
+    """Test the head if the shift is working correctly"""
     alpha_list.shift()
     assert alpha_list.head.value == 'a'
 
 
 def test_dll_shift_tail(alpha_list):
+    """Test the tail if the shift is working correctly"""
     alpha_list.shift()
     assert alpha_list.tail.value == 'e'
 
 
 def test_dll_shift_empty(empty_list):
+    """Test if IndexError is raised when shifting an empty list"""
     with pytest.raises(IndexError):
         empty_list.shift()
 
 
 def test_dll_remove_empty(empty_list):
+    """Test if ValueError is raised when removing item that doesn't exist"""
     with pytest.raises(ValueError):
         empty_list.remove("value_not_there")
 
 
 def test_dll_remove_like_pop(alpha_list):
+    """Test the head if remove is working correctly"""
     alpha_list.remove('a')
     assert alpha_list.head.value == 'b'
 
 
 def test_dll_remove_like_shift(alpha_list):
+    """Test the tail if remove is working correctly"""
     alpha_list.remove('f')
     assert alpha_list.tail.value == 'e'
 
 
 def test_dll_remove_central_prev_pointers(alpha_list):
+    """Test the pointer if remove is working correctly"""
     alpha_list.remove('c')
     assert alpha_list.tail.prev.prev.prev.value == 'b'
 
 
 def test_dll_remove_central_next_pointers(alpha_list):
+    """Test the pointer if remove is working correctly"""
     alpha_list.remove('c')
     assert alpha_list.head.next.next.value == 'd'
-
-# @pytest.mark.parametrize('item', NODE_TEST_ITEMS)
-# def test_linkedlist_insert_integer(item):
-#     """Test Dll insert command works correctly."""
-#     from dll import Dll
-#     input_ = [1, 2]
-#     dll_instance = Dll(input_)
-#     assert dll_instance.tail.value == 2
-#     assert dll_instance.tail.pointer.value == 1
-#     assert dll_instance.tail.previous is None
-#     dll_instance.insert(item)
-#     assert dll_instance.tail.pointer.pointer.value == item
-#     assert dll_instance.tail.pointer.pointer.previous.value == 1
