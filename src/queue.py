@@ -18,17 +18,23 @@ class Node(object):
 
     def __init__(self, value, next, prev):
 
-        # Require the user to explicitly state the pointers
-        # as per zen of python line 2 (python -m this)
         self.value = value
-        self.next = next  # In other words: pointer towards the tail
-        self.prev = prev  # In other words: previous towards the head
+        self.next = next 
+        self.prev = prev
 
 
 class Queue(object):
 
     head = None
     tail = None
+
+    def __init__(self, values=[]):
+        """Initalize the queue chain."""
+        if isinstance(values, list):
+            for value in values:
+                self.append(value)
+        else:
+            raise TypeError("Please package your item into a list!")
 
     def dequeue(self, value):
         """Dequeue the specified item from the node chain and rebind the Nodes agian"""
