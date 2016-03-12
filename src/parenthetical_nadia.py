@@ -2,7 +2,7 @@
 """Parenthetical whitboard challenge."""
 
 
-def parethetical(string_):
+def parenthetical(string_):
     """Return a number based on string."""
     if len(string_) % 2 != 0:
         return 1
