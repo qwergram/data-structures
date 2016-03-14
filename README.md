@@ -12,3 +12,19 @@ Source:
 ## Proper_parenthetics_norton.py
 
 This is my parenthetics parser for checking if a string is either open, broken or even.
+
+## Parenthetical_nadia.py
+    This is Nadia's parser for parentheisis.
+
+## Deque
+
+Anothe Node-chain setup composed with double linked list but with the following attributes:
+
+    - pop()
+    - popleft()
+    - size()
+    - peek()
+    - peekleft()
+    - append(val)
+    - appendleft(val)
+

@@ -6,7 +6,7 @@ import dll
 class Deque(object):
     """Deque class initiailed."""
 
-    def __init__(self, values):
+    def __init__(self, values=[]):
         """Deque initialized with a composition of DLL."""
         self.dll = dll.DoublyLinkedList(values)
 
@@ -16,7 +16,7 @@ class Deque(object):
 
     def appendleft(self, val):
         """Append value to head."""
-        self.dll.inser(val)
+        self.dll.insert(val)
 
     def pop(self):
         """Return and remove the tail value."""
