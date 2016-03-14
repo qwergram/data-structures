@@ -44,7 +44,7 @@ class DoublyLinkedList(object):
     def insert(self, value):
         """Insert a value to the head of the linked list."""
         new_node = Node(value, None, None)
-        if self.head is None: 
+        if self.head is None:
             self.head = self.tail = new_node
         else:
             new_node.next = self.head
