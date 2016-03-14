@@ -1,32 +1,37 @@
 # -*- coding: utf-8 -*-
-"""Create a Queue object that fits the definition defined here:
-    http://www.princeton.edu/~achaney/tmve/wiki100k/docs/Queue_(data_structure).html
-    http://ls.pwd.io/2014/08/singly-and-doubly-linked-lists-in-python/
-    It should have the following methods:
+"""Create a Queue object that fits the definition defined here.
 
-    .enqueue(value): Add a value to the queue
-    .dequeue(value): Remove a value from the queue and return the value
-        - If empty, raise an Exception
-    .peek(): Return the next value
-        - If empty, return None
-    .size(): Check the size of the queue
+http://www.princeton.edu/~achaney/tmve/wiki100k/docs/Queue_(data_structure).html
+http://ls.pwd.io/2014/08/singly-and-doubly-linked-lists-in-python/
+It should have the following methods:
 
-    This queue follows a logic of first in, first out.
+.enqueue(value): Add a value to the queue
+.dequeue(value): Remove a value from the queue and return the value
+    - If empty, raise an Exception
+.peek(): Return the next value
+    - If empty, return None
+.size(): Check the size of the queue
+
+This queue follows a logic of first in, first out.
 """
 
 
 class Node(object):
     """Classify a NodeObject that points to two different objects."""
 
-    def __init__(self, value, next, prev):
+    def __init__(self, value, nxt, prev):
         """Initialize node."""
         self.value = value
-        self.next = next
+        self.next = nxt
         self.prev = prev
 
 
 class Queue(object):
-    """Classify a new object that resembles a LinkedList following a first in first out logic."""
+    """Define Queue object.
+
+    Classify a new object that resembles a LinkedList following
+    a first in first out logic.
+    """
 
     head = None
     tail = None
@@ -51,7 +56,7 @@ class Queue(object):
             self.tail = new_node
 
     def dequeue(self, value):
-        """Dequeue the specified item from the node chain and rebind the Nodes agian."""
+        """Dequeue the specified item from the node chain."""
         current_node = self.head
         previous_node = None
         if self.tail is not None and self.tail.value == value:
