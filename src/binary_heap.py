@@ -5,7 +5,7 @@
 class BinaryHeap(object):
     """Define a BinaryHeap object."""
 
-    heap = [None]
+    heap = []
 
     def __init__(self, values=[], organization='max'):
         """Heap list initialization."""
@@ -23,10 +23,11 @@ class BinaryHeap(object):
 
     def _max_orient(self):
         """Rebind the heap with a max to min top-down orientation."""
+        # import pdb; pdb.set_trace()
         length = len(self.heap) - 1
         while True:
             start_heap = self.heap
-            for cur in range(2, length):
+            for cur in range(length):
                 cur = length - cur
                 # assert type(self.heap[cur]) == int, cur
                 # if cur == 0:
