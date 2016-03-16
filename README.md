@@ -33,3 +33,5 @@ Anothe Node-chain setup composed with double linked list but with the following 
 ## Binary_heap.py
 
 A heap data-structure defined by wikipedia, found here: https://en.wikipedia.org/wiki/Binary_heap
+
+Python Heap Q - https://docs.python.org/2/library/heapq.html

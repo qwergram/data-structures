@@ -11,6 +11,8 @@ class BinaryHeap(object):
         heap follows is the default definition which is what is dicussed on the
         page linked.
 
+        Python Heap Q - https://docs.python.org/2/library/heapq.html
+
     """
 
     heap = []

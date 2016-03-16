@@ -1,7 +1,8 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 """Test binary heap."""
 import pytest
 import heapq
+
 
 @pytest.fixture(scope='function')
 def num_heap():
@@ -24,5 +25,9 @@ def med_num_heap():
     return BinaryHeap([1, 2, 3, 4, 5])
 
 
+def test__short_num_heap(short_num_heap):
+    assert short_num_heap.heap == [3, 1, 2]
+
+
 def test_num_heap(num_heap):
-    return num_heap.heap == [1, 1, 3, 4, 2, 6, 7, 8]
+    assert num_heap.heap == [8, 7, 6, 3, 1, 2, 4, 1]
