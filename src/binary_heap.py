@@ -24,6 +24,9 @@ class BinaryHeap(object):
         """Heap list initialization."""
         self._reset()
         if isinstance(values, list):
+            for item in values:
+                if not (isinstance(item, int) or isinstance(item, float)):
+                    raise TypeError("Items in list not valid!")
             self._heap = [None] + values
             self.sift()
         else:
