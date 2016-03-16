@@ -13,81 +13,42 @@ class BinaryHeap(object):
 
     """
 
-    def _reset(self):
-        self._heap = [None]
+    heap = []
 
     @property
-    def heap(self):
-        return self._heap[1:]
+    def length(self):
+        return len(self.heap)
 
     def __init__(self, values=[]):
         """Heap list initialization."""
-        self._reset()
         if isinstance(values, list):
             for item in values:
                 if not (isinstance(item, int) or isinstance(item, float)):
                     raise TypeError("Items in list not valid!")
-            self._heap = [None] + values
-            self.sift()
+                self.push(item)
         else:
             raise TypeError("Please package your item into a list!")
 
-    def sift(self):
+    def sift(self, startpos, pos):
         """Rebind the heap with a max to min top-down orientation."""
-        run_twice = False
-        # Is this the right logic? The world knows, but I never will lel
-        while True:
-            heap_copy = self._heap
-            for (pointer_index, item) in list(enumerate(heap_copy))[::-1]:
-                while pointer_index >= 1:
-
-                    print(pointer_index)
-                    if not pointer_index:
-                        continue
-                    if pointer_index == 1:
-                        parent_index = sibling_index = None
-                    else:
-                        if pointer_index % 2:  # if the pointer is odd:
-                            sibling_index = pointer_index - 1
-                        else:  # if the pointer is even
-                            try:
-                                sibling_index = pointer_index + 1
-                                heap_copy[sibling_index]
-                            except IndexError:
-                                sibling_index = None
-
-                        parent_index = pointer_index // 2
-
-                    if sibling_index:
-                        if heap_copy[pointer_index] > heap_copy[sibling_index]:
-                            biggest_index = pointer_index
-                        else:
-                            biggest_index = sibling_index
-                    else:
-                        biggest_index = pointer_index
-
-                    if parent_index and heap_copy[parent_index] < heap_copy[biggest_index]:
-                        print("TRADING!", heap_copy[parent_index], heap_copy[biggest_index], parent_index, biggest_index)
-                        heap_copy[parent_index], heap_copy[biggest_index] = heap_copy[biggest_index], heap_copy[parent_index]
-
-                    print(biggest_index, pointer_index, parent_index)
-                    print('w', heap_copy)
-
-                    pointer_index = pointer_index // 2
-
-            if heap_copy == self._heap:
-                if run_twice:
-                    break
-                else:
-                    run_twice = True
-                self._heap = heap_copy
+        newitem = self.heap[pos]
+        # This is from the module heapq
+        while pos > startpos:
+            parentpos = (pos - 1) >> 1
+            parent = self.heap[parentpos]
+            if newitem > parent:
+                self.heap[pos] = parent
+                pos = parentpos
+                continue
+            break
+        self.heap[pos] = newitem
 
     def push(self, val):
-        """Pushes a value to end of heap while maintaining structure."""
-        self._heap.append(val)
-        self.sift()
+        """Pushes a value to end of self.heap while maintaining structure."""
+        self.heap.append(val)
+        self.sift(0, self.length - 1)
 
     def pop(self):
         """Remove the head value and maintain structure."""
-        self._heap[1] = self._heap[-1]
-        self.sift()
+        self.heap[1] = self.heap[-1]
+        self.sift(0, self.length - 1)
