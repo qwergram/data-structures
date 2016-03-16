@@ -3,97 +3,88 @@
 
 
 class BinaryHeap(object):
-    """Define a BinaryHeap object."""
+    """Define a BinaryHeap object.
+
+        There are multiple definitions/variations of a BinaryHeap according to
+        Wikipedia. (https://en.wikipedia.org/wiki/Binary_heap) so there were
+        multiple algorithms to choose from. The algorithm or variation that this
+        heap follows is the default definition which is what is dicussed on the
+        page linked.
+
+    """
 
     def _reset(self):
-        self.heap = []
+        self._heap = [None]
 
-    def __init__(self, values=[], organization='max'):
+    @property
+    def heap(self):
+        return self._heap[1:]
+
+    def __init__(self, values=[]):
         """Heap list initialization."""
         self._reset()
-        if organization.lower() == 'max':
-            self._orient = self._max_orient
-        elif organization.lower() == 'min':
-            self._orient = self._min_orient
-        else:
-            raise ValueError('oraganization argument invalid')
         if isinstance(values, list):
-            self.heap = values
-            self._orient()
-            # for value in values:
-                # self.push(value)
+            self._heap = [None] + values
+            self.sift()
         else:
             raise TypeError("Please package your item into a list!")
 
-    def _max_orient(self):
+    def sift(self):
         """Rebind the heap with a max to min top-down orientation."""
-        # import pdb; pdb.set_trace()
-        length = len(self.heap)
+        run_twice = False
+        # Is this the right logic? The world knows, but I never will lel
         while True:
-            start_heap = self.heap
-            for cursor in range(length):
-                # print(cursor)
-                if cursor == 0:
-                    left = 1
-                    right = 2
-                else:
-                    left = cursor * 2
-                    right = (cursor * 2) + 1
-                try:
-                    print(cursor + 1)
-                    print(left + 1)
-                    print(right + 1)
-                    print()
-                except IndexError:
-                    pass
+            heap_copy = self._heap
+            for (pointer_index, item) in list(enumerate(heap_copy))[::-1]:
+                while pointer_index >= 1:
 
-            break
+                    print(pointer_index)
+                    if not pointer_index:
+                        continue
+                    if pointer_index == 1:
+                        parent_index = sibling_index = None
+                    else:
+                        if pointer_index % 2:  # if the pointer is odd:
+                            sibling_index = pointer_index - 1
+                        else:  # if the pointer is even
+                            try:
+                                sibling_index = pointer_index + 1
+                                heap_copy[sibling_index]
+                            except IndexError:
+                                sibling_index = None
 
-        # while True:
-        #     start_heap = self.heap
-        #     for cur in range(1, length):
-        #         cur = length - cur
-        #         print(self.heap)
-        #
-        #         if cur % 2 == 0:
-        #             i = cur // 2
-        #         else:
-        #             i = (cur // 2) + 1
-        #
-        #         print(i)
-        #         print("i c i c")
-        #         print(i, cur, self.heap[i], self.heap[cur])
-        #         if self.heap[i] < self.heap[cur]:
-        #             self.heap[i], self.heap[cur] = self.heap[cur], self.heap[i]
-        #     if start_heap == self.heap:
-        #         break
+                        parent_index = pointer_index // 2
 
-    def _min_orient(self):
-        """Rebind the heap with a min to max top-down orientation."""
-        length = len(self.heap) - 1
-        while True:
-            start_heap = self.heap
-            for cur in range(1, length):
-                cur = length - cur
-                if cur == 0:
+                    if sibling_index:
+                        if heap_copy[pointer_index] > heap_copy[sibling_index]:
+                            biggest_index = pointer_index
+                        else:
+                            biggest_index = sibling_index
+                    else:
+                        biggest_index = pointer_index
+
+                    if parent_index and heap_copy[parent_index] < heap_copy[biggest_index]:
+                        print("TRADING!", heap_copy[parent_index], heap_copy[biggest_index], parent_index, biggest_index)
+                        heap_copy[parent_index], heap_copy[biggest_index] = heap_copy[biggest_index], heap_copy[parent_index]
+
+                    print(biggest_index, pointer_index, parent_index)
+                    print('w', heap_copy)
+
+                    pointer_index = pointer_index // 2
+
+            if heap_copy == self._heap:
+                if run_twice:
                     break
-                i = cur // 2
-                if self.heap[i] > self.heap[cur]:
-                    self.heap[i], self.heap[cur] = self.heap[cur], self.heap[i]
-            if start_heap == self.heap:
-                break
+                else:
+                    run_twice = True
+                self._heap = heap_copy
 
     def push(self, val):
         """Pushes a value to end of heap while maintaining structure."""
-        self.heap.append(val)
-        self._orient()
+        self._heap.append(val)
+        self.sift()
 
     def pop(self):
         """Remove the head value and maintain structure."""
-        self.heap[0] = self.heap[-1]
-        self._orient()
-
-
-if __name__ == "__main__":
-    b = BinaryHeap([1,2,3,4,5])
-    print(b.heap)
+        self._heap[1] = self._heap[-1]
+        self.sift()
