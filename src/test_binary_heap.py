@@ -3,6 +3,7 @@
 import pytest
 
 
+@pytest.fixture(scope='function')
 def test_max_orient():
     """Test max organization works."""
     from binary_heap import BinaryHeap

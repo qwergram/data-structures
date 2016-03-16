@@ -23,6 +23,7 @@ class BinaryHeap(object):
 
     def _max_orient(self):
         """Rebind the heap with a max to min top-down orientation."""
+        # import pdb; pdb.set_trace()
         length = len(self.heap) - 1
         while True:
             start_heap = self.heap
