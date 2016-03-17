@@ -21,11 +21,47 @@ Remember to update your README file with a description of this new data type as 
 
 """
 
+class SimpleGraph(object):
+    """Defining simple graph class."""
 
-class Node(object):
-    """Initializes a node"""
+    def _reset(self):
+        self.graph_dict = {}
 
-    def __init__(self, value=None):
-        self.value = value
+    def __init__(self):
+        """Initialize Simple Graph object."""
+        self._reset()
 
-class SimpleGraph(object)
+    def nodes(self):
+        """Return a list of all nodes in the dict."""
+        node_list = list(self.graph_dict.keys())
+        return node_list
+
+    def edges(self):
+        """Return a list of all edges in the dict."""
+        to_return = []
+        for key in list(self.graph_dict.keys()):
+            for value in self.graph_dict.get(key):
+                to_return.append('{}-{}'.format(key, value))
+        return to_return
+
+    def add_node(self, node):
+        """Add a new node 'n' to the graph."""
+        self.graph_dict.setdeault(node, [])
+
+    def add_edge(self, node1, node2):
+        """Add a edge from node 1 to node 2."""
+
+    def del_node(self, value):
+        """Deletes the node from the graph."""
+
+    def del_edge(self, node2, node2):
+        """Deletes the edge connecting node 1 and node 2."""
+
+    def has_node(self, node):
+        """Return a boolean for if node exists."""
+
+    def neighbors(self, node):
+        """Return the list of all nodes connected to by edges."""
+
+    def adjacent(self, node1, node2):
+        """Return boolean for edges between two nodes."""
