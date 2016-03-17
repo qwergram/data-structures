@@ -54,8 +54,15 @@ class SimpleGraph(object):
         self.add_node(node2)
         self.graph_dict[node1].append(node2)
 
-    def del_node(self, value):
+    def del_node(self, node):
         """Deletes the node from the graph."""
+        try:
+            del self.graph_dict[node]
+            for key in self.graph_dict:
+                if node in self.graph_dict[key]:
+                    self.graph_dict[key].remove(node)
+        except KeyError:
+            raise ValueError('Node does not exist')
 
     def del_edge(self, node1, node2):
         """Deletes the edge connecting node 1 and node 2."""
