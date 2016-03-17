@@ -75,6 +75,7 @@ class SimpleGraph(object):
 
     def has_node(self, node):
         """Return a boolean for if node exists."""
+        return isinstance(self.graph_dict.get(node), list)
 
     def neighbors(self, node):
         """Return the list of all nodes connected to by edges."""
