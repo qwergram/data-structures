@@ -116,3 +116,16 @@ def test_neighbors_empty():
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     assert instance.neighbors('waffles') is None
+
+
+def test_adjacent():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    instance.add_edge('waffles', 'waffles2')
+    assert instance.adjacent('waffles', 'waffles2')
+
+
+def test_adjacent_empty():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    assert instance.adjacent('waffles', 'waffles2') is False
