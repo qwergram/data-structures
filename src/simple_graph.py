@@ -62,10 +62,16 @@ class SimpleGraph(object):
                 if node in self.graph_dict[key]:
                     self.graph_dict[key].remove(node)
         except KeyError:
-            raise ValueError('Node does not exist')
+            raise KeyError('Node does not exist')
 
     def del_edge(self, node1, node2):
         """Deletes the edge connecting node 1 and node 2."""
+        try:
+            self.graph_dict[node1].remove(node2)
+        except KeyError:
+            raise KeyError('Node1 does not exist')
+        except ValueError:
+            raise ValueError('Node2 does not exist')
 
     def has_node(self, node):
         """Return a boolean for if node exists."""
