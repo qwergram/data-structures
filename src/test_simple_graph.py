@@ -43,3 +43,9 @@ def test_edge_display():
     instance = SimpleGraph()
     instance.add_edge('waffles', 'waffles2')
     assert instance.edges()[0] == 'waffles-waffles2'
+
+
+def test_edge_display_empty():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    assert instance.edges() == []
