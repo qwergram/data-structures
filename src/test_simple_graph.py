@@ -102,3 +102,17 @@ def test_has_node_doesnt_exist():
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     assert instance.has_node("waffles") is False
+
+
+def test_neighbors():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    instance.add_edge('waffles', 'waffles2')
+    instance.add_edge('waffles', 'waffles3')
+    assert instance.neighbors('waffles') == ['waffles2', 'waffles3']
+
+
+def test_neighbors_empty():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    assert instance.neighbors('waffles') is None
