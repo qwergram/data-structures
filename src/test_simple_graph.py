@@ -49,3 +49,19 @@ def test_edge_display_empty():
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     assert instance.edges() == []
+
+
+def test_del_node():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    instance.add_node("waffles")
+    instance.del_node('waffles')
+    assert instance.graph_dict == {}
+
+
+def test_del_node_edge():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    instance.add_edge('waffles', 'waffles2')
+    instance.del_node('waffles2')
+    assert instance.graph_dict == {'waffles': []}
