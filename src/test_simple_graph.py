@@ -89,3 +89,16 @@ def test_del_non_existent_node2():
     instance.add_node("waffles")
     with pytest.raises(ValueError):
         instance.del_edge('waffles', 'waffles2')
+
+
+def test_has_node():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    instance.add_node("waffles")
+    assert instance.has_node("waffles")
+
+
+def test_has_node_doesnt_exist():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    assert instance.has_node("waffles") is False
