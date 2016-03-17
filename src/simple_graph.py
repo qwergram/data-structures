@@ -79,6 +79,11 @@ class SimpleGraph(object):
 
     def neighbors(self, node):
         """Return the list of all nodes connected to by edges."""
+        return self.graph_dict.get(node)
 
     def adjacent(self, node1, node2):
         """Return boolean for edges between two nodes."""
+        try:
+            return node2 in self.graph_dict.get(node1)
+        except TypeError:
+            return False
