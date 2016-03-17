@@ -69,4 +69,8 @@ def test_insert_pop_empty(empty_dict):
 def test_insert_alpha(alpha_list):
     """Test if you can insert an empty piority queue."""
     alpha_list.insert('hello', 1)
+<<<<<<< HEAD
     assert alpha_list.priority_queue.get(1)[3] == 'hello'
+=======
+    assert alpha_list.priority_queue.get(1)[3] == 'hello'
+>>>>>>> 2e1298062d4246a9fa409c456c8a76484a90b52d
