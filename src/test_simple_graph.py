@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import pytest
 
 def test_add_node():
     from simple_graph import SimpleGraph
@@ -65,3 +65,27 @@ def test_del_node_edge():
     instance.add_edge('waffles', 'waffles2')
     instance.del_node('waffles2')
     assert instance.graph_dict == {'waffles': []}
+
+
+def test_del_edge():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    instance.add_edge('waffles', 'waffles2')
+    instance.add_edge('waffles', 'waffles3')
+    instance.del_edge('waffles', 'waffles2')
+    assert instance.graph_dict['waffles'] == ['waffles3']
+
+
+def test_del_non_existent_node1():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    with pytest.raises(KeyError):
+        instance.del_edge('waffles', 'waffles2')
+
+
+def test_del_non_existent_node2():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    instance.add_node("waffles")
+    with pytest.raises(ValueError):
+        instance.del_edge('waffles', 'waffles2')
