@@ -46,15 +46,18 @@ class SimpleGraph(object):
 
     def add_node(self, node):
         """Add a new node 'n' to the graph."""
-        self.graph_dict.setdeault(node, [])
+        self.graph_dict.setdefault(node, [])
 
     def add_edge(self, node1, node2):
         """Add a edge from node 1 to node 2."""
+        self.add_node(node1)
+        self.add_node(node2)
+        self.graph_dict[node1].append(node2)
 
     def del_node(self, value):
         """Deletes the node from the graph."""
 
-    def del_edge(self, node2, node2):
+    def del_edge(self, node1, node2):
         """Deletes the edge connecting node 1 and node 2."""
 
     def has_node(self, node):

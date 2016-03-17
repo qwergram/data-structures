@@ -27,3 +27,10 @@ def test_add_edge():
     instance.add_node("waffles2")
     instance.add_edge('waffles', 'waffles2')
     assert instance.graph_dict['waffles'][0] == 'waffles2'
+
+
+def test_add_edge_not_exist():
+    from simple_graph import SimpleGraph
+    instance = SimpleGraph()
+    instance.add_edge('waffles', 'waffles2')
+    assert instance.graph_dict['waffles'][0] == 'waffles2'
