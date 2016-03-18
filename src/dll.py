@@ -44,7 +44,7 @@ class DoublyLinkedList(object):
     def insert(self, value):
         """Insert a value to the head of the linked list."""
         new_node = Node(value, None, None)
-        if self.head is None: 
+        if self.head is None:
             self.head = self.tail = new_node
         else:
             new_node.next = self.head
@@ -55,7 +55,11 @@ class DoublyLinkedList(object):
     def pop(self):
         """Remove the head of the chain and return the Node."""
         if self.head is None:
-            raise IndexError("Cannot pop an empty list!")
+            raise IndexError("Cannot execute on an empty list!")
+        elif self.head.next is None:
+            old_head = self.head
+            self.head = self.tail = None
+            return old_head
         else:
             old_head = self.head
             new_head = self.head.next
@@ -68,7 +72,11 @@ class DoublyLinkedList(object):
     def shift(self):
         """Remove the tail of the chain and return the Node."""
         if self.head is None:
-            raise IndexError("Cannot shift an empty list!")
+            raise IndexError("Cannot execute an empty list!")
+        elif self.head.next is None:
+            old_head = self.head
+            self.head = self.tail = None
+            return old_head
         else:
             old_tail = self.tail
             new_tail = self.tail.prev
@@ -79,7 +87,7 @@ class DoublyLinkedList(object):
             return old_tail
 
     def remove(self, value):
-        """Remove the specified item from the node chain and rebind the Nodes agian."""
+        """Remove the specified item from the node chain and rebind the Nodes again."""
         if self.tail is not None and self.tail.value == value:
             self.shift()
         elif self.head is not None and self.head.value == value:
