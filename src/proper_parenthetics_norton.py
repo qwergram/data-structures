@@ -1,8 +1,11 @@
 # -*- encoding: utf-8 -*-
+"""A module for seeing if you have the right amount of parantheses."""
+
 
 def proper_parens(string):
+    """Test if the number of "(" matches the number of ")"."""
     status = 0
-    for char in string:
+    for char in string.strip():
         if char == "(":
             status += 1
         elif char == ")":
@@ -11,12 +14,3 @@ def proper_parens(string):
         return status / abs(status)
     else:
         return status
-
-assert proper_parens("()") == 0
-assert proper_parens("(") == 1
-assert proper_parens(")") == -1
-assert proper_parens("))") == -1
-assert proper_parens("((") == 1
-assert proper_parens("((()") == 1
-assert proper_parens("())))") == -1
-assert proper_parens("((((()))))") == 0
