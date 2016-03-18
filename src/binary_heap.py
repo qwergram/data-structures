@@ -3,52 +3,45 @@
 
 
 class BinaryHeap(object):
-    """Define a BinaryHeap object.
+    """Define a  max BinaryHeap object."""
 
-        There are multiple definitions/variations of a BinaryHeap according to
-        Wikipedia. (https://en.wikipedia.org/wiki/Binary_heap) so there were
-        multiple algorithms to choose from. The algorithm or variation that this
-        heap follows is the default definition which is what is dicussed on the
-        page linked.
+    def __init__(self):
+        """Initialize heap object."""
+        self.heap = []
 
-    """
+    def restructure(self):
+        """Maintain structure of heap to max."""
+        if len(self.heap) > 1:  # Solves 0 and 1 case THIS IS GOOD'
+            biggest = self.heap[-1]
 
-    heap = []
+            while biggest != self.heap[0]:
 
-    @property
-    def length(self):
-        return len(self.heap)
+                for i, value in enumerate(self.heap):
+                    if i == 0:
+                        continue
+                    if biggest < value:
+                        biggest = value
+                    try:
+                        if value < self.heap[i * 2]:
+                            self.heap[i], self.heap[2 * i] = self.heap[i * 2], value
+                        if value < self.heap[(i * 2) + 1]:
+                            self.heap[i], self.heap[(2 * i) + 1] = self.heap[(i * 2) + 1], value
+                    except IndexError:
+                        break
+                if self.heap[0] < self.heap[1]:
+                    biggest = self.heap[-1]
+                    self.heap[0], self.heap[1] = self.heap[1], self.heap[0]
+                else:
+                    break
 
-    def __init__(self, values=[]):
-        """Heap list initialization."""
-        if isinstance(values, list):
-            for item in values:
-                if not (isinstance(item, int) or isinstance(item, float)):
-                    raise TypeError("Items in list not valid!")
-                self.push(item)
-        else:
-            raise TypeError("Please package your item into a list!")
-
-    def sift(self, startpos, pos):
-        """Rebind the heap with a max to min top-down orientation."""
-        newitem = self.heap[pos]
-        # This is from the module heapq
-        while pos > startpos:
-            parentpos = (pos - 1) >> 1
-            parent = self.heap[parentpos]
-            if newitem > parent:
-                self.heap[pos] = parent
-                pos = parentpos
-                continue
-            break
-        self.heap[pos] = newitem
-
-    def push(self, val):
-        """Pushes a value to end of self.heap while maintaining structure."""
-        self.heap.append(val)
-        self.sift(0, self.length - 1)
+    def push(self, value):
+        """Push a value into the heap."""
+        self.heap.append(value)
+        self.restructure()
 
     def pop(self):
-        """Remove the head value and maintain structure."""
-        self.heap[1] = self.heap[-1]
-        self.sift(0, self.length - 1)
+        """Return the initial value of the heap."""
+        removed = self.heap[0]
+        self.heap = self.heap[1:]
+        self.restructure()
+        return removed
