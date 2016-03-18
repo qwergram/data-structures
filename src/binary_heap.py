@@ -5,7 +5,7 @@
 class BinaryHeap(object):
     """Define a  max BinaryHeap object."""
 
-    def __init___(self):
+    def __init__(self):
         """Initialize heap object."""
         self.heap = []
 
@@ -13,8 +13,12 @@ class BinaryHeap(object):
         """Maintain structure of heap to max."""
         if len(self.heap) > 1:  # Solves 0 and 1 case THIS IS GOOD'
             biggest = self.heap[-1]
+
             while biggest != self.heap[0]:
+
                 for i, value in enumerate(self.heap):
+                    if i == 0:
+                        continue
                     if biggest < value:
                         biggest = value
                     try:
@@ -24,6 +28,11 @@ class BinaryHeap(object):
                             self.heap[i], self.heap[(2 * i) + 1] = self.heap[(i * 2) + 1], value
                     except IndexError:
                         break
+                if self.heap[0] < self.heap[1]:
+                    biggest = self.heap[-1]
+                    self.heap[0], self.heap[1] = self.heap[1], self.heap[0]
+                else:
+                    break
 
     def push(self, value):
         """Push a value into the heap."""
