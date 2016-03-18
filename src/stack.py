@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-"""Stack subclass of Linked_list to add stack logic functionality."""
+"""Stack like functionality composed of Linked List object."""
 from linked_list import Node, LinkedList
 
 
 class Stack(object):
-    """Stack subclass of LinkedList."""
+    """Define a stack object."""
 
     def __init__(self, value=[]):
-        """Stack initailization composed of linkedlist."""
+        """Stack initialization composed of linkedlist."""
         self.ll = LinkedList(value)
 
     def push(self, value):

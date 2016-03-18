@@ -1,5 +1,5 @@
 # -*- coding=utf-8 -*-
-"""Test LinkedList for random inputs."""
+"""Test Stack for random inputs."""
 import pytest
 
 
