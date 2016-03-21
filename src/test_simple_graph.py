@@ -28,8 +28,8 @@ def test_breadth(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test = fixture_graph.breadth_traversal('A')
     test2 = fixture_graph.breadth_traversal('G')
-    # assert test == ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-    assert test2 == ['G', 'D', 'H', 'A', 'B', 'C', 'E', 'F']
+    assert test == ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    assert test2 == ['G', 'H']
 
 
 def test_add_node():

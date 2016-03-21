@@ -73,19 +73,24 @@ class SimpleGraph(object):
         pass
 
     def breadth_traversal(self, starting_node):
-        try:
-            to_search = [starting_node] + self.graph_dict[starting_node]
-        except KeyError:
-            raise ValueError("Node does not exist")
-        copy = None
-        while copy != to_search:
-            copy = to_search[:]
-            for item in to_search:
-                for sub_item in self.graph_dict[item]:
-                    if sub_item not in copy:
-                        copy.append(sub_item)
-            to_search = copy[:]
-        return to_search
+        to_search = [starting_node]
+        seen = []
+
+        while to_search:
+            item = to_search[0]
+            children = self.neighbors(item)
+            if children:
+                for child in children:
+                    if child in seen:
+                        continue
+                    if child in to_search:
+                        continue
+                    to_search.append(child)
+            to_search.remove(item)
+            seen.append(item)
+
+        return seen
+
 
 if __name__ == '__main__':
     obj = SimpleGraph()
@@ -104,4 +109,4 @@ if __name__ == '__main__':
     obj.add_edge('C', 'F')
     obj.add_edge('D', 'G')
     obj.add_edge('G', 'H')
-    obj.breadth_first_traversal('A')
+    obj.breadth_traversal('A')
