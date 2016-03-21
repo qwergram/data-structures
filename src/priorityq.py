@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*- 
 """Create a priority queue list."""
 
 
 class PriorityQ(object):
+    """Define Priority Queue class."""
 
     def __init__(self, values=[]):
         """Initalize the queue chain."""

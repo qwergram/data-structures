@@ -11,6 +11,13 @@ def alpha_list():
 
 
 @pytest.fixture(scope='function')
+def one_list():
+    """Create a Node Chain with one item."""
+    from deque import Deque
+    return Deque(['a'])
+
+
+@pytest.fixture(scope='function')
 def empty_list():
     """Create a Node Chain with nothing."""
     from deque import Deque
@@ -127,6 +134,30 @@ def test_deque_popleft_tail(alpha_list):
     """Test the tail if the popleft is working correctly."""
     alpha_list.popleft()
     assert alpha_list.dll.tail.value == 'f'
+
+
+def test_deque_popleft_one(one_list):
+    """Test one item popleft is working correctly."""
+    one_list.popleft()
+    assert one_list.dll.tail is None
+
+
+def test_deque_popleft_one_head(one_list):
+    """Test one item popleft is working correctly."""
+    one_list.popleft()
+    assert one_list.dll.head is None
+
+
+def test_deque_pop_one(one_list):
+    """Test one item popleft is working correctly."""
+    one_list.pop()
+    assert one_list.dll.tail is None
+
+
+def test_deque_pop_one_head(one_list):
+    """Test one item popleft is working correctly."""
+    one_list.pop()
+    assert one_list.dll.head is None
 
 
 def test_deque_popleft_empty(empty_list):

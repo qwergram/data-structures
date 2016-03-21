@@ -28,3 +28,7 @@ Anothe Node-chain setup composed with double linked list but with the following 
     - append(val)
     - appendleft(val)
 
+
+
+## Binary_heap.py
+A binnary heap structure that sorts max value at the pinnical and seach child of each parent in the triplicated format must be less then the parent.  Fits the algorithm of i, 2i, 2i+1 where i is the parent and the next two are children.

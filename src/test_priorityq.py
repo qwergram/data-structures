@@ -66,6 +66,7 @@ def test_insert_pop_empty(empty_dict):
     with pytest.raises(IndexError):
         empty_dict.pop()
 
+
 def test_insert_alpha(alpha_list):
     """Test if you can insert an empty piority queue."""
     alpha_list.insert('hello', 1)
@@ -73,6 +74,7 @@ def test_insert_alpha(alpha_list):
 
 
 def pop_on_empty_queue(empty_dict):
+    """Test if priorityq can pop from multipl priorty levels."""
     empty_dict.insert(1, "Server broken")
     empty_dict.insert(5, "Feed children")
     assert empty_dict.pop() == "Server broken"
