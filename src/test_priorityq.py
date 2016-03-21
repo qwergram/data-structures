@@ -62,11 +62,18 @@ def test_insert_pop_empty(empty_dict):
     """Test if you can insert an empty piority queue."""
     empty_dict.insert([])
     empty_dict.pop()
+    assert empty_dict.priority_queue.get(2) is None
     with pytest.raises(IndexError):
-        empty_dict.priority_queue.get(2)[0]
-
+        empty_dict.pop()
 
 def test_insert_alpha(alpha_list):
     """Test if you can insert an empty piority queue."""
     alpha_list.insert('hello', 1)
     assert alpha_list.priority_queue.get(1)[3] == 'hello'
+
+
+def pop_on_empty_queue(empty_dict):
+    empty_dict.insert(1, "Server broken")
+    empty_dict.insert(5, "Feed children")
+    assert empty_dict.pop() == "Server broken"
+    assert empty_dict.pop() == "Feed children"

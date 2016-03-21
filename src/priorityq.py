@@ -31,6 +31,8 @@ class PriorityQ(object):
             highest = sorted(self.priority_queue)[0]
             to_pop = self.priority_queue[highest][0]
             self.priority_queue[highest] = self.priority_queue[highest][1:]
+            if not len(self.priority_queue[highest]):
+                del self.priority_queue[highest]
             return to_pop
         else:
             raise IndexError("Hey, the queue is empty")
