@@ -73,6 +73,7 @@ class SimpleGraph(object):
         pass
 
     def breadth_first_traversal(self, starting_node):
+        import pdb; pdb.set_trace()
         try:
             to_search = [starting_node] + self.graph_dict[starting_node]
         except KeyError:
@@ -85,3 +86,21 @@ class SimpleGraph(object):
                     if sub_item not in copy:
                         copy.append(sub_item)
             to_search = copy[:]
+
+if __name__ == '__main__':
+    obj = SimpleGraph()
+    obj.add_node('A')
+    obj.add_node('B')
+    obj.add_node('C')
+    obj.add_node('D')
+    obj.add_node('E')
+    obj.add_node('F')
+    obj.add_node('G')
+    obj.add_edge('A', 'B')
+    obj.add_edge('A', 'C')
+    obj.add_edge('A', 'D')
+    obj.add_edge('C', 'E')
+    obj.add_edge('C', 'F')
+    obj.add_edge('D', 'G')
+    obj.breadth_first_traversal('A')
+
