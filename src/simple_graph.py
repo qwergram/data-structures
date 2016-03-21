@@ -68,3 +68,68 @@ class SimpleGraph(object):
             return node2 in self.graph_dict.get(node1)
         except TypeError:
             return False
+
+    def depth_traversal(self, starting_node):
+        """Traverse the graph in a traverse modality."""
+        if self.has_node(starting_node):
+            to_search = [starting_node]
+            seen = []
+            while to_search:
+                item = to_search[0]
+                children = self.neighbors(item)
+                if children:
+                    for index, child in enumerate(children):
+                        if child in seen:
+                            continue
+                        if child in to_search:
+                            continue
+                        to_search.insert(index + 1, child)
+                to_search.remove(item)
+                seen.append(item)
+            return seen
+
+        else:
+            raise ValueError('Node does not exist')
+
+    def breadth_traversal(self, starting_node):
+        """Traverse the graph in a breadth modality."""
+        if self.has_node(starting_node):
+            to_search = [starting_node]
+            seen = []
+
+            while to_search:
+                item = to_search[0]
+                children = self.neighbors(item)
+                if children:
+                    for child in children:
+                        if child in seen:
+                            continue
+                        if child in to_search:
+                            continue
+                        to_search.append(child)
+                to_search.remove(item)
+                seen.append(item)
+
+            return seen
+        else:
+            raise ValueError('Node does not exist')
+
+
+if __name__ == '__main__':
+    obj = SimpleGraph()
+    obj.add_node('A')
+    obj.add_node('B')
+    obj.add_node('C')
+    obj.add_node('D')
+    obj.add_node('E')
+    obj.add_node('F')
+    obj.add_node('G')
+    obj.add_node('H')
+    obj.add_edge('A', 'B')
+    obj.add_edge('A', 'C')
+    obj.add_edge('A', 'D')
+    obj.add_edge('C', 'E')
+    obj.add_edge('C', 'F')
+    obj.add_edge('D', 'G')
+    obj.add_edge('G', 'H')
+    obj.breadth_traversal('A')

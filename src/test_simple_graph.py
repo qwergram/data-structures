@@ -1,7 +1,67 @@
 # -*- coding: utf-8 -*-
 import pytest
 
+@pytest.fixture(scope='function')
+def fixture_graph():
+    """Create a fixture."""
+    from simple_graph import SimpleGraph
+    obj = SimpleGraph()
+    obj.add_node('A')
+    obj.add_node('B')
+    obj.add_node('C')
+    obj.add_node('D')
+    obj.add_node('E')
+    obj.add_node('F')
+    obj.add_node('G')
+    obj.add_node('H')
+    obj.add_edge('A', 'B')
+    obj.add_edge('A', 'C')
+    obj.add_edge('A', 'D')
+    obj.add_edge('C', 'E')
+    obj.add_edge('C', 'F')
+    obj.add_edge('D', 'G')
+    obj.add_edge('G', 'H')
+    return obj
+
+
+def test_breadth(fixture_graph):
+    """Test that to_search is the correct outcome path."""
+    test = fixture_graph.breadth_traversal('A')
+    assert test == ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+
+
+def test_breadth_small(fixture_graph):
+    """Test that to_search is the correct outcome path."""
+    test2 = fixture_graph.breadth_traversal('G')
+    assert test2 == ['G', 'H']
+
+
+def test_nonexistant_node_breadth(fixture_graph):
+    """Test breath function on a non-existant node."""
+    with pytest.raises(ValueError):
+        fixture_graph.breadth_traversal('I')
+
+
+def test_depth(fixture_graph):
+    """Test that to_search is the correct outcome path."""
+    test = fixture_graph.depth_traversal('A')
+    assert test == ['A', 'B', 'C', 'E', 'F', 'D', 'G', 'H']
+
+
+def test_depth_small(fixture_graph):
+    """Test that to_search is the correct outcome path."""
+    test2 = fixture_graph.depth_traversal('G')
+    assert test2 == ['G', 'H']
+
+
+def test_nonexistant_node_depth(fixture_graph):
+    """Test breath function on a non-existant node."""
+    with pytest.raises(ValueError):
+        fixture_graph.depth_traversal('I')
+
+
 def test_add_node():
+    """Test add node."""
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     instance.add_node("waffles")
