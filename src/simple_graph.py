@@ -69,27 +69,35 @@ class SimpleGraph(object):
         except TypeError:
             return False
 
-    def depth_traversal(self, start):
-        pass
+    def depth_traversal(self, starting_node):
+        if self.has_node(starting_node):
+            to_search = [starting_node]
+            seen = []
+        else:
+            raise ValueError('Node does not exist')
+
 
     def breadth_traversal(self, starting_node):
-        to_search = [starting_node]
-        seen = []
+        if self.has_node(starting_node):    
+            to_search = [starting_node]
+            seen = []
 
-        while to_search:
-            item = to_search[0]
-            children = self.neighbors(item)
-            if children:
-                for child in children:
-                    if child in seen:
-                        continue
-                    if child in to_search:
-                        continue
-                    to_search.append(child)
-            to_search.remove(item)
-            seen.append(item)
+            while to_search:
+                item = to_search[0]
+                children = self.neighbors(item)
+                if children:
+                    for child in children:
+                        if child in seen:
+                            continue
+                        if child in to_search:
+                            continue
+                        to_search.append(child)
+                to_search.remove(item)
+                seen.append(item)
 
-        return seen
+            return seen
+        else:
+            raise ValueError('Node does not exist')
 
 
 if __name__ == '__main__':

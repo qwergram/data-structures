@@ -27,12 +27,23 @@ def fixture_graph():
 def test_breadth(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test = fixture_graph.breadth_traversal('A')
-    test2 = fixture_graph.breadth_traversal('G')
     assert test == ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+
+
+def test_breadth_small(fixture_graph):
+    """Test that to_search is the correct outcome path."""
+    test2 = fixture_graph.breadth_traversal('G')
     assert test2 == ['G', 'H']
 
 
+def test_nonexistant_node_breadth(fixture_graph):
+    """Test breath function on a non-existant node."""
+    with pytest.raises(ValueError):
+        fixture_graph.breadth_traversal('I')
+
+
 def test_add_node():
+    """Test add node."""
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     instance.add_node("waffles")
