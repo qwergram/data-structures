@@ -5,11 +5,12 @@
 class BinaryHeap(object):
     """Define a  max BinaryHeap object."""
 
-    def __init__(self):
+    def __init__(self, value=[]):
         """Initialize heap object."""
         self.heap = []
+        self.push(value)
 
-    def restructure(self):
+    def _restructure(self):
         """Maintain structure of heap to max."""
         if len(self.heap) > 1:  # Solves 0 and 1 case THIS IS GOOD'
             biggest = self.heap[-1]
@@ -23,9 +24,9 @@ class BinaryHeap(object):
                         biggest = value
                     try:
                         if value < self.heap[i * 2]:
-                            self.heap[i], self.heap[2 * i] = self.heap[i * 2], value
+                            self.heap[i], self.heap[2 * i] = self.heap[i * 2], value  # NOQA
                         if value < self.heap[(i * 2) + 1]:
-                            self.heap[i], self.heap[(2 * i) + 1] = self.heap[(i * 2) + 1], value
+                            self.heap[i], self.heap[(2 * i) + 1] = self.heap[(i * 2) + 1], value   # NOQA
                     except IndexError:
                         break
                 if self.heap[0] < self.heap[1]:
@@ -36,12 +37,20 @@ class BinaryHeap(object):
 
     def push(self, value):
         """Push a value into the heap."""
-        self.heap.append(value)
-        self.restructure()
+        if hasattr(value, '__iter__'):
+            for index in value:
+                self.heap.append(index)
+                self._restructure()
+        else:
+            self.heap.append(value)
+            self._restructure()
 
     def pop(self):
         """Return the initial value of the heap."""
-        removed = self.heap[0]
-        self.heap = self.heap[1:]
-        self.restructure()
-        return removed
+        try:
+            removed = self.heap[0]
+            self.heap = self.heap[1:]
+            self._restructure()
+            return removed
+        except IndexError:
+            return None
