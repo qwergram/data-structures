@@ -70,15 +70,30 @@ class SimpleGraph(object):
             return False
 
     def depth_traversal(self, starting_node):
+        """Traverse the graph in a traverse modality."""
         if self.has_node(starting_node):
             to_search = [starting_node]
             seen = []
+            while to_search:
+                item = to_search[0]
+                children = self.neighbors(item)
+                if children:
+                    for index, child in enumerate(children):
+                        if child in seen:
+                            continue
+                        if child in to_search:
+                            continue
+                        to_search.insert(index + 1, child)
+                to_search.remove(item)
+                seen.append(item)
+            return seen
+
         else:
             raise ValueError('Node does not exist')
 
-
     def breadth_traversal(self, starting_node):
-        if self.has_node(starting_node):    
+        """Traverse the graph in a breadth modality."""
+        if self.has_node(starting_node):
             to_search = [starting_node]
             seen = []
 

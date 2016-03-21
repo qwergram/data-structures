@@ -42,6 +42,24 @@ def test_nonexistant_node_breadth(fixture_graph):
         fixture_graph.breadth_traversal('I')
 
 
+def test_depth(fixture_graph):
+    """Test that to_search is the correct outcome path."""
+    test = fixture_graph.depth_traversal('A')
+    assert test == ['A', 'B', 'C', 'E', 'F', 'D', 'G', 'H']
+
+
+def test_depth_small(fixture_graph):
+    """Test that to_search is the correct outcome path."""
+    test2 = fixture_graph.depth_traversal('G')
+    assert test2 == ['G', 'H']
+
+
+def test_nonexistant_node_depth(fixture_graph):
+    """Test breath function on a non-existant node."""
+    with pytest.raises(ValueError):
+        fixture_graph.depth_traversal('I')
+
+
 def test_add_node():
     """Test add node."""
     from simple_graph import SimpleGraph
