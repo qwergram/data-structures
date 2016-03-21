@@ -1,6 +1,28 @@
 # -*- coding: utf-8 -*-
 import pytest
 
+@pytest.fixture(scope='function')
+def fixture_obj():
+    """Create a fixture."""
+    from simple_graph import SimpleGraph
+    obj = SimpleGraph()
+    obj.add_node('A')
+    obj.add_node('B')
+    obj.add_node('C')
+    obj.add_node('D')
+    obj.add_node('E')
+    obj.add_node('F')
+    obj.add_node('G')
+    obj.add_node('H')
+    obj.add_edge('A', 'B')
+    obj.add_edge('A', 'C')
+    obj.add_edge('A', 'D')
+    obj.add_edge('C', 'E')
+    obj.add_edge('C', 'F')
+    obj.add_edge('D', 'G')
+    obj.add_edge('G', 'H')
+    return obj
+
 def test_add_node():
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
