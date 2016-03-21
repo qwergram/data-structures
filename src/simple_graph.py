@@ -68,3 +68,20 @@ class SimpleGraph(object):
             return node2 in self.graph_dict.get(node1)
         except TypeError:
             return False
+
+    def depth_first_traversal(self, start):
+        pass
+
+    def breadth_first_traversal(self, starting_node):
+        try:
+            to_search = [starting_node] + self.graph_dict[starting_node]
+        except KeyError:
+            raise ValueError("Node does not exist")
+        copy = None
+        while copy != to_search:
+            copy = to_search[:]
+            for item in to_search:
+                for sub_item in copy[item]:
+                    if sub_item not in copy:
+                        copy.append(sub_item)
+            to_search = copy[:]
