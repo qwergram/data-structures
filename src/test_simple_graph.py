@@ -2,7 +2,7 @@
 import pytest
 
 @pytest.fixture(scope='function')
-def fixture_obj():
+def fixture_graph():
     """Create a fixture."""
     from simple_graph import SimpleGraph
     obj = SimpleGraph()
@@ -22,6 +22,15 @@ def fixture_obj():
     obj.add_edge('D', 'G')
     obj.add_edge('G', 'H')
     return obj
+
+
+def test_breadth(fixture_graph):
+    """Test that to_search is the correct outcome path."""
+    test = fixture_graph.breadth_traversal('A')
+    test2 = fixture_graph.breadth_traversal('G')
+    # assert test == ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    assert test2 == ['G', 'D', 'H', 'A', 'B', 'C', 'E', 'F']
+
 
 def test_add_node():
     from simple_graph import SimpleGraph

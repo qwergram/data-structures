@@ -69,10 +69,10 @@ class SimpleGraph(object):
         except TypeError:
             return False
 
-    def depth_first_traversal(self, start):
+    def depth_traversal(self, start):
         pass
 
-    def breadth_first_traversal(self, starting_node):
+    def breadth_traversal(self, starting_node):
         try:
             to_search = [starting_node] + self.graph_dict[starting_node]
         except KeyError:
@@ -85,8 +85,7 @@ class SimpleGraph(object):
                     if sub_item not in copy:
                         copy.append(sub_item)
             to_search = copy[:]
-
-        import pdb; pdb.set_trace()
+        return to_search
 
 if __name__ == '__main__':
     obj = SimpleGraph()
