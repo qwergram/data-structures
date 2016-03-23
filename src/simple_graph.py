@@ -27,13 +27,13 @@ class SimpleGraph(object):
 
     def add_node(self, node):
         """Add a new node 'n' to the graph."""
-        self.graph_dict.setdefault(node, [])
+        self.graph_dict.setdefault(node, {})
 
-    def add_edge(self, node1, node2):
+    def add_edge(self, node1, node2, weight=1):
         """Add a edge from node 1 to node 2."""
         self.add_node(node1)
         self.add_node(node2)
-        self.graph_dict[node1].append(node2)
+        self.graph_dict[node1][node2] = 1
 
     def del_node(self, node):
         """Delete the node from the graph."""
@@ -41,26 +41,31 @@ class SimpleGraph(object):
             del self.graph_dict[node]
             for key in self.graph_dict:
                 if node in self.graph_dict[key]:
-                    self.graph_dict[key].remove(node)
+                    del self.graph_dict[key][node]
         except KeyError:
             raise KeyError('Node does not exist')
 
     def del_edge(self, node1, node2):
         """Delete the edge connecting node 1 and node 2."""
         try:
-            self.graph_dict[node1].remove(node2)
+            self.graph_dict[node1]
         except KeyError:
             raise KeyError('Node1 does not exist')
-        except ValueError:
+        try:
+            del self.graph_dict[node1][node2]
+        except KeyError:
             raise ValueError('Node2 does not exist')
 
     def has_node(self, node):
         """Return a boolean for if node exists."""
-        return isinstance(self.graph_dict.get(node), list)
+        return isinstance(self.graph_dict.get(node), dict)
 
     def neighbors(self, node):
         """Return the list of all nodes connected to by edges."""
-        return self.graph_dict.get(node)
+        try:
+            return set(self.graph_dict.get(node).keys())
+        except AttributeError:
+            return None
 
     def adjacent(self, node1, node2):
         """Return boolean for edges between two nodes."""

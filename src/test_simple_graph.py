@@ -88,14 +88,14 @@ def test_add_edge():
     instance.add_node("waffles")
     instance.add_node("waffles2")
     instance.add_edge('waffles', 'waffles2')
-    assert instance.graph_dict['waffles'][0] == 'waffles2'
+    assert 'waffles2' in instance.graph_dict['waffles']
 
 
 def test_add_edge_not_exist():
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     instance.add_edge('waffles', 'waffles2')
-    assert instance.graph_dict['waffles'][0] == 'waffles2'
+    assert 'waffles2' in instance.graph_dict['waffles']
 
 
 def test_edge_display():
@@ -124,7 +124,7 @@ def test_del_node_edge():
     instance = SimpleGraph()
     instance.add_edge('waffles', 'waffles2')
     instance.del_node('waffles2')
-    assert instance.graph_dict == {'waffles': []}
+    assert instance.graph_dict == {'waffles': {}}
 
 
 def test_del_edge():
@@ -133,7 +133,7 @@ def test_del_edge():
     instance.add_edge('waffles', 'waffles2')
     instance.add_edge('waffles', 'waffles3')
     instance.del_edge('waffles', 'waffles2')
-    assert instance.graph_dict['waffles'] == ['waffles3']
+    assert instance.graph_dict['waffles'] == {'waffles3': 1}
 
 
 def test_del_non_existent_node1():
@@ -169,7 +169,7 @@ def test_neighbors():
     instance = SimpleGraph()
     instance.add_edge('waffles', 'waffles2')
     instance.add_edge('waffles', 'waffles3')
-    assert instance.neighbors('waffles') == ['waffles2', 'waffles3']
+    assert instance.neighbors('waffles') == {'waffles2', 'waffles3'}
 
 
 def test_neighbors_empty():
