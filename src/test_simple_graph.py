@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
+
 @pytest.fixture(scope='function')
 def fixture_graph():
     """Create a fixture."""
@@ -14,26 +15,43 @@ def fixture_graph():
     obj.add_node('F')
     obj.add_node('G')
     obj.add_node('H')
-    obj.add_edge('A', 'B')
-    obj.add_edge('A', 'C')
-    obj.add_edge('A', 'D')
-    obj.add_edge('C', 'E')
-    obj.add_edge('C', 'F')
-    obj.add_edge('D', 'G')
+    obj.add_edge('A', 'B', 45000000)
+    obj.add_edge('A', 'C', .5)
+    obj.add_edge('A', 'D', 8)
+    obj.add_edge('C', 'E', 0)
+    obj.add_edge('C', 'F', 1)
+    obj.add_edge('D', 'G', 7)
     obj.add_edge('G', 'H')
     return obj
+
+
+# def test_shortest_path_two_nodes(node1, node2):
+#     """Returns the shortest path between 2 nodes."""
+#     from simple_graph import SimpleGraph, shortest_path
+#     obj = SimpleGraph()
+#     obj.add_edge('C', 'F')
+#     assert obj.shortest_path('C', 'F') == ['C', 'F']
+
+
+# def test_shortest_path_two_nodes_not_connected(node1, node2):
+#     """Returns the shortest path between 2 nodes."""
+#     from simple_graph import SimpleGraph, shortest_path
+#     obj = SimpleGraph()
+#     obj.add_node('C')
+#     obj.add_node('F')
+#     assert obj.shortest_path('C', 'F') is None
 
 
 def test_breadth(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test = fixture_graph.breadth_traversal('A')
-    assert test == ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    assert test == {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'}
 
 
 def test_breadth_small(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test2 = fixture_graph.breadth_traversal('G')
-    assert test2 == ['G', 'H']
+    assert test2 == {'G', 'H'}
 
 
 def test_nonexistant_node_breadth(fixture_graph):
@@ -45,13 +63,13 @@ def test_nonexistant_node_breadth(fixture_graph):
 def test_depth(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test = fixture_graph.depth_traversal('A')
-    assert test == ['A', 'B', 'C', 'E', 'F', 'D', 'G', 'H']
+    assert test == {'A', 'B', 'C', 'E', 'F', 'D', 'G', 'H'}
 
 
 def test_depth_small(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test2 = fixture_graph.depth_traversal('G')
-    assert test2 == ['G', 'H']
+    assert test2 == {'G', 'H'}
 
 
 def test_nonexistant_node_depth(fixture_graph):

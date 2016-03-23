@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Simple Graph structure."""
+from priorityq import PriorityQ
 
 
 class SimpleGraph(object):
@@ -91,7 +92,7 @@ class SimpleGraph(object):
                         to_search.insert(index + 1, child)
                 to_search.remove(item)
                 seen.append(item)
-            return seen
+            return set(seen)
 
         else:
             raise ValueError('Node does not exist')
@@ -115,9 +116,33 @@ class SimpleGraph(object):
                 to_search.remove(item)
                 seen.append(item)
 
-            return seen
+            return set(seen)
         else:
             raise ValueError('Node does not exist')
+
+    # def shortest_path(node1, node2):
+    #     """Return the shortest path between nodes."""
+    #     if self.has_node(node1) and self.has_node(node2):
+    #         to_search = [node1]
+    #         seen = []
+
+    #         while to_search:
+    #             item = to_search[0]
+    #             children = self.neighbors(item)
+    #             if children:
+    #                 for child in children:
+    #                     if child in seen:
+    #                         continue
+    #                     if child in to_search:
+    #                         continue
+    #                     if child == node2
+    #                     to_search.append(child)
+    #             to_search.remove(item)
+    #             seen.append(item)
+
+    #         return set(seen)
+    #     else:
+    #         raise ValueError('Node does not exist')
 
 
 if __name__ == '__main__':

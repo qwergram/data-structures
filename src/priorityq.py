@@ -27,7 +27,6 @@ class PriorityQ(object):
             self.priority_queue[priority] = [value]
 
     def pop(self):
-        print(self.priority_queue)
         if len(self.priority_queue.values()) != 0:
             highest = sorted(self.priority_queue)[0]
             to_pop = self.priority_queue[highest][0]
