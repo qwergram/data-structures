@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Simple Graph structure."""
-from priorityq import PriorityQ
+from linked_list import LinkedList
 
 
 class SimpleGraph(object):
@@ -100,7 +100,7 @@ class SimpleGraph(object):
     def breadth_traversal(self, starting_node):
         """Traverse the graph in a breadth modality."""
         if self.has_node(starting_node):
-            to_search = [starting_node]
+            to_search = LinkedList([starting_node])
             seen = []
 
             while to_search:
@@ -113,7 +113,7 @@ class SimpleGraph(object):
                         if child in to_search:
                             continue
                         to_search.append(child)
-                to_search.remove(item)
+                item = to_search.pop(item)
                 seen.append(item)
 
             return set(seen)
