@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Simple Graph structure."""
-from linked_list import LinkedList
-
+import collections
+import time
+import random
 
 class SimpleGraph(object):
     """Defining simple graph class."""
@@ -77,6 +78,7 @@ class SimpleGraph(object):
 
     def depth_traversal(self, starting_node):
         """Traverse the graph in a traverse modality."""
+        now = time.time()
         if self.has_node(starting_node):
             to_search = [starting_node]
             seen = []
@@ -92,17 +94,47 @@ class SimpleGraph(object):
                         to_search.insert(index + 1, child)
                 to_search.remove(item)
                 seen.append(item)
-            return set(seen)
+            seen = set(seen)
 
         else:
             raise ValueError('Node does not exist')
+        future = time.time() - now
+        print(future)
+        return seen
+
+    def depth_traversal_deque(self, starting_node):
+        """Traverse the graph in a traverse modality."""
+        now2 = time.time()
+        if self.has_node(starting_node):
+            to_search = collections.deque(starting_node)
+            seen = set()
+            while to_search:
+                item = to_search[0]
+                children = self.neighbors(item)
+                if children:
+                    for child in children:
+                        if child in seen:
+                            continue
+                        if child in to_search:
+                            continue
+                        tail = to_search.popleft()
+                        intermediate = child + tail
+                        to_search.extendleft(intermediate)
+                to_search.popleft()
+                seen.update(item)
+            # return seen
+
+        else:
+            raise ValueError('Node does not exist')
+        future = time.time() - now2
+        print(future)
+        return seen
 
     def breadth_traversal(self, starting_node):
         """Traverse the graph in a breadth modality."""
         if self.has_node(starting_node):
-            to_search = LinkedList([starting_node])
-            seen = []
-
+            to_search = collections.deque(starting_node)
+            seen = set()
             while to_search:
                 item = to_search[0]
                 children = self.neighbors(item)
@@ -113,10 +145,10 @@ class SimpleGraph(object):
                         if child in to_search:
                             continue
                         to_search.append(child)
-                item = to_search.pop(item)
-                seen.append(item)
+                item = to_search.popleft()
+                seen.update(item)
 
-            return set(seen)
+            return seen
         else:
             raise ValueError('Node does not exist')
 
@@ -147,19 +179,12 @@ class SimpleGraph(object):
 
 if __name__ == '__main__':
     obj = SimpleGraph()
-    obj.add_node('A')
-    obj.add_node('B')
-    obj.add_node('C')
-    obj.add_node('D')
-    obj.add_node('E')
-    obj.add_node('F')
-    obj.add_node('G')
-    obj.add_node('H')
-    obj.add_edge('A', 'B')
-    obj.add_edge('A', 'C')
-    obj.add_edge('A', 'D')
-    obj.add_edge('C', 'E')
-    obj.add_edge('C', 'F')
-    obj.add_edge('D', 'G')
-    obj.add_edge('G', 'H')
-    obj.breadth_traversal('A')
+    random_nodes = ('q w e r t y u i o p a s d f g h j k l z x c v b n m 1 3 4 2 5 6 7 8 ').split()
+    for x in range(1000000):
+        random.shuffle(random_nodes)
+        node1 = ''.join(random_nodes)
+        random.shuffle(random_nodes)
+        node2 = ''.join(random_nodes)
+        obj.add_edge(node1, node2)
+    for x in range(100):
+        obj.depth_traversal_deque(node2)
