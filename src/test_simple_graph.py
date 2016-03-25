@@ -25,23 +25,6 @@ def fixture_graph():
     return obj
 
 
-# def test_shortest_path_two_nodes(node1, node2):
-#     """Returns the shortest path between 2 nodes."""
-#     from simple_graph import SimpleGraph, shortest_path
-#     obj = SimpleGraph()
-#     obj.add_edge('C', 'F')
-#     assert obj.shortest_path('C', 'F') == ['C', 'F']
-
-
-# def test_shortest_path_two_nodes_not_connected(node1, node2):
-#     """Returns the shortest path between 2 nodes."""
-#     from simple_graph import SimpleGraph, shortest_path
-#     obj = SimpleGraph()
-#     obj.add_node('C')
-#     obj.add_node('F')
-#     assert obj.shortest_path('C', 'F') is None
-
-
 def test_breadth(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test = fixture_graph.breadth_traversal('A')
@@ -207,3 +190,7 @@ def test_adjacent_empty():
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     assert instance.adjacent('waffles', 'waffles2') is False
+
+
+def test_edge_graph(fixture_graph):
+    assert fixture_graph.graph_dict['A']['C'] == 0.5
