@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Simple Graph structure."""
 import collections
+from itertools  import count
+from heapq import heappop, heappush
 
 
 class SimpleGraph(object):
@@ -119,6 +121,19 @@ class SimpleGraph(object):
             return seen
         else:
             raise ValueError('Node does not exist')
+
+    def shortest_path_dijkstra(self, starting_node):
+        unique = count()
+        visited = set()
+        heap = [(0, None, starting_node)]
+        while heap:
+            (cumulative, _, node)= heappop(heap)
+            if node not in visited:
+                visited.add(node)
+                yield node, cumulative
+                for neighbor, edge_weight in self.graph_dict[node].items():
+                    heappush(heap, (cumulative + edge_weight, next(unique), neighbor))
+
 
 
 if __name__ == '__main__':

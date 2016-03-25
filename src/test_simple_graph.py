@@ -25,6 +25,9 @@ def fixture_graph():
     return obj
 
 
+def test_dijkstra(fixture_graph):
+    assert list(fixture_graph.shortest_path_dijkstra('A')) == [('A', 0), ('C', 0.5), ('E', 0.5), ('F', 1.5), ('D', 8), ('G', 15), ('H', 16), ('B', 45000000)]
+
 def test_breadth(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test = fixture_graph.breadth_traversal('A')
