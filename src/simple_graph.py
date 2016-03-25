@@ -78,7 +78,6 @@ class SimpleGraph(object):
 
     def depth_traversal(self, starting_node):
         """Traverse the graph in a traverse modality."""
-        now = time.time()
         if self.has_node(starting_node):
             to_search = [starting_node]
             seen = []
@@ -98,36 +97,6 @@ class SimpleGraph(object):
 
         else:
             raise ValueError('Node does not exist')
-        future = time.time() - now
-        print(future)
-        return seen
-
-    def depth_traversal_deque(self, starting_node):
-        """Traverse the graph in a traverse modality."""
-        now2 = time.time()
-        if self.has_node(starting_node):
-            to_search = collections.deque(starting_node)
-            seen = set()
-            while to_search:
-                item = to_search[0]
-                children = self.neighbors(item)
-                if children:
-                    for child in children:
-                        if child in seen:
-                            continue
-                        if child in to_search:
-                            continue
-                        tail = to_search.popleft()
-                        intermediate = child + tail
-                        to_search.extendleft(intermediate)
-                to_search.popleft()
-                seen.update(item)
-            # return seen
-
-        else:
-            raise ValueError('Node does not exist')
-        future = time.time() - now2
-        print(future)
         return seen
 
     def breadth_traversal(self, starting_node):
@@ -152,39 +121,21 @@ class SimpleGraph(object):
         else:
             raise ValueError('Node does not exist')
 
-    # def shortest_path(node1, node2):
-    #     """Return the shortest path between nodes."""
-    #     if self.has_node(node1) and self.has_node(node2):
-    #         to_search = [node1]
-    #         seen = []
-
-    #         while to_search:
-    #             item = to_search[0]
-    #             children = self.neighbors(item)
-    #             if children:
-    #                 for child in children:
-    #                     if child in seen:
-    #                         continue
-    #                     if child in to_search:
-    #                         continue
-    #                     if child == node2
-    #                     to_search.append(child)
-    #             to_search.remove(item)
-    #             seen.append(item)
-
-    #         return set(seen)
-    #     else:
-    #         raise ValueError('Node does not exist')
-
 
 if __name__ == '__main__':
     obj = SimpleGraph()
-    random_nodes = ('q w e r t y u i o p a s d f g h j k l z x c v b n m 1 3 4 2 5 6 7 8 ').split()
-    for x in range(1000000):
-        random.shuffle(random_nodes)
-        node1 = ''.join(random_nodes)
-        random.shuffle(random_nodes)
-        node2 = ''.join(random_nodes)
-        obj.add_edge(node1, node2)
-    for x in range(100):
-        obj.depth_traversal_deque(node2)
+    obj.add_node('A')
+    obj.add_node('B')
+    obj.add_node('C')
+    obj.add_node('D')
+    obj.add_node('E')
+    obj.add_node('F')
+    obj.add_node('G')
+    obj.add_node('H')
+    obj.add_edge('A', 'B', 45000000)
+    obj.add_edge('A', 'C', .5)
+    obj.add_edge('A', 'D', 8)
+    obj.add_edge('C', 'E', 0)
+    obj.add_edge('C', 'F', 1)
+    obj.add_edge('D', 'G', 7)
+    obj.add_edge('G', 'H')
