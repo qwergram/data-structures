@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """Simple Graph structure."""
 import collections
-import time
-import random
+
 
 class SimpleGraph(object):
     """Defining simple graph class."""
