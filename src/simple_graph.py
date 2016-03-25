@@ -35,7 +35,7 @@ class SimpleGraph(object):
         """Add a edge from node 1 to node 2."""
         self.add_node(node1)
         self.add_node(node2)
-        self.graph_dict[node1][node2] = 1
+        self.graph_dict[node1][node2] = weight
 
     def del_node(self, node):
         """Delete the node from the graph."""
