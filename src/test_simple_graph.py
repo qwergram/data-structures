@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
+
 @pytest.fixture(scope='function')
 def fixture_graph():
     """Create a fixture."""
@@ -14,12 +15,12 @@ def fixture_graph():
     obj.add_node('F')
     obj.add_node('G')
     obj.add_node('H')
-    obj.add_edge('A', 'B')
-    obj.add_edge('A', 'C')
-    obj.add_edge('A', 'D')
-    obj.add_edge('C', 'E')
-    obj.add_edge('C', 'F')
-    obj.add_edge('D', 'G')
+    obj.add_edge('A', 'B', 45000000)
+    obj.add_edge('A', 'C', .5)
+    obj.add_edge('A', 'D', 8)
+    obj.add_edge('C', 'E', 0)
+    obj.add_edge('C', 'F', 1)
+    obj.add_edge('D', 'G', 7)
     obj.add_edge('G', 'H')
     return obj
 
@@ -27,13 +28,13 @@ def fixture_graph():
 def test_breadth(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test = fixture_graph.breadth_traversal('A')
-    assert test == ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    assert test == {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'}
 
 
 def test_breadth_small(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test2 = fixture_graph.breadth_traversal('G')
-    assert test2 == ['G', 'H']
+    assert test2 == {'G', 'H'}
 
 
 def test_nonexistant_node_breadth(fixture_graph):
@@ -45,13 +46,13 @@ def test_nonexistant_node_breadth(fixture_graph):
 def test_depth(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test = fixture_graph.depth_traversal('A')
-    assert test == ['A', 'B', 'C', 'E', 'F', 'D', 'G', 'H']
+    assert test == {'A', 'B', 'C', 'E', 'F', 'D', 'G', 'H'}
 
 
 def test_depth_small(fixture_graph):
     """Test that to_search is the correct outcome path."""
     test2 = fixture_graph.depth_traversal('G')
-    assert test2 == ['G', 'H']
+    assert test2 == {'G', 'H'}
 
 
 def test_nonexistant_node_depth(fixture_graph):
@@ -88,14 +89,14 @@ def test_add_edge():
     instance.add_node("waffles")
     instance.add_node("waffles2")
     instance.add_edge('waffles', 'waffles2')
-    assert instance.graph_dict['waffles'][0] == 'waffles2'
+    assert 'waffles2' in instance.graph_dict['waffles']
 
 
 def test_add_edge_not_exist():
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     instance.add_edge('waffles', 'waffles2')
-    assert instance.graph_dict['waffles'][0] == 'waffles2'
+    assert 'waffles2' in instance.graph_dict['waffles']
 
 
 def test_edge_display():
@@ -124,7 +125,7 @@ def test_del_node_edge():
     instance = SimpleGraph()
     instance.add_edge('waffles', 'waffles2')
     instance.del_node('waffles2')
-    assert instance.graph_dict == {'waffles': []}
+    assert instance.graph_dict == {'waffles': {}}
 
 
 def test_del_edge():
@@ -133,7 +134,7 @@ def test_del_edge():
     instance.add_edge('waffles', 'waffles2')
     instance.add_edge('waffles', 'waffles3')
     instance.del_edge('waffles', 'waffles2')
-    assert instance.graph_dict['waffles'] == ['waffles3']
+    assert instance.graph_dict['waffles'] == {'waffles3': 1}
 
 
 def test_del_non_existent_node1():
@@ -169,7 +170,7 @@ def test_neighbors():
     instance = SimpleGraph()
     instance.add_edge('waffles', 'waffles2')
     instance.add_edge('waffles', 'waffles3')
-    assert instance.neighbors('waffles') == ['waffles2', 'waffles3']
+    assert instance.neighbors('waffles') == {'waffles2', 'waffles3'}
 
 
 def test_neighbors_empty():
@@ -189,3 +190,7 @@ def test_adjacent_empty():
     from simple_graph import SimpleGraph
     instance = SimpleGraph()
     assert instance.adjacent('waffles', 'waffles2') is False
+
+
+def test_edge_graph(fixture_graph):
+    assert fixture_graph.graph_dict['A']['C'] == 0.5

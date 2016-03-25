@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Simple Graph structure."""
+import collections
 
 
 class SimpleGraph(object):
@@ -27,13 +28,13 @@ class SimpleGraph(object):
 
     def add_node(self, node):
         """Add a new node 'n' to the graph."""
-        self.graph_dict.setdefault(node, [])
+        self.graph_dict.setdefault(node, {})
 
-    def add_edge(self, node1, node2):
+    def add_edge(self, node1, node2, weight=1):
         """Add a edge from node 1 to node 2."""
         self.add_node(node1)
         self.add_node(node2)
-        self.graph_dict[node1].append(node2)
+        self.graph_dict[node1][node2] = weight
 
     def del_node(self, node):
         """Delete the node from the graph."""
@@ -41,26 +42,31 @@ class SimpleGraph(object):
             del self.graph_dict[node]
             for key in self.graph_dict:
                 if node in self.graph_dict[key]:
-                    self.graph_dict[key].remove(node)
+                    del self.graph_dict[key][node]
         except KeyError:
             raise KeyError('Node does not exist')
 
     def del_edge(self, node1, node2):
         """Delete the edge connecting node 1 and node 2."""
         try:
-            self.graph_dict[node1].remove(node2)
+            self.graph_dict[node1]
         except KeyError:
             raise KeyError('Node1 does not exist')
-        except ValueError:
+        try:
+            del self.graph_dict[node1][node2]
+        except KeyError:
             raise ValueError('Node2 does not exist')
 
     def has_node(self, node):
         """Return a boolean for if node exists."""
-        return isinstance(self.graph_dict.get(node), list)
+        return isinstance(self.graph_dict.get(node), dict)
 
     def neighbors(self, node):
         """Return the list of all nodes connected to by edges."""
-        return self.graph_dict.get(node)
+        try:
+            return set(self.graph_dict.get(node).keys())
+        except AttributeError:
+            return None
 
     def adjacent(self, node1, node2):
         """Return boolean for edges between two nodes."""
@@ -86,17 +92,17 @@ class SimpleGraph(object):
                         to_search.insert(index + 1, child)
                 to_search.remove(item)
                 seen.append(item)
-            return seen
+            seen = set(seen)
 
         else:
             raise ValueError('Node does not exist')
+        return seen
 
     def breadth_traversal(self, starting_node):
         """Traverse the graph in a breadth modality."""
         if self.has_node(starting_node):
-            to_search = [starting_node]
-            seen = []
-
+            to_search = collections.deque(starting_node)
+            seen = set()
             while to_search:
                 item = to_search[0]
                 children = self.neighbors(item)
@@ -107,8 +113,8 @@ class SimpleGraph(object):
                         if child in to_search:
                             continue
                         to_search.append(child)
-                to_search.remove(item)
-                seen.append(item)
+                item = to_search.popleft()
+                seen.update(item)
 
             return seen
         else:
@@ -125,11 +131,10 @@ if __name__ == '__main__':
     obj.add_node('F')
     obj.add_node('G')
     obj.add_node('H')
-    obj.add_edge('A', 'B')
-    obj.add_edge('A', 'C')
-    obj.add_edge('A', 'D')
-    obj.add_edge('C', 'E')
-    obj.add_edge('C', 'F')
-    obj.add_edge('D', 'G')
+    obj.add_edge('A', 'B', 45000000)
+    obj.add_edge('A', 'C', .5)
+    obj.add_edge('A', 'D', 8)
+    obj.add_edge('C', 'E', 0)
+    obj.add_edge('C', 'F', 1)
+    obj.add_edge('D', 'G', 7)
     obj.add_edge('G', 'H')
-    obj.breadth_traversal('A')
