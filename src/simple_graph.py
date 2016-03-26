@@ -145,8 +145,27 @@ class SimpleGraph(object):
                     heappush(heap, (cumulative + edge_weight, unique, neighbor, (node, path)))
 
 
-    def bellman_ford_path():
-        pass
+    def floyd_path(self):
+        dist = {}
+        for node in self.graph_dict:
+            dist[node] = {}
+            dist[node][node] = 0
+        for node1 in dist:
+            for node2 in dist:
+                try:
+                    dist[node1][node2] = self.graph_dict[node1][node2]
+                except KeyError:
+                    pass
+        for k in self.graph_dict:
+            for i in self.graph_dict:
+                for j in self.graph_dict:
+                    try:
+                        if dist[i][j] > dist[i][k] + dist[k][j]:
+                            dist[i][j] = dist[i][k] + dist[k][j]
+                    except KeyError:
+                        pass
+        import pdb; pdb.set_trace()
+
 
 
 if __name__ == '__main__':
@@ -166,3 +185,4 @@ if __name__ == '__main__':
     obj.add_edge('C', 'F', 1)
     obj.add_edge('D', 'G', 7)
     obj.add_edge('G', 'H')
+    obj.floyd_path()
