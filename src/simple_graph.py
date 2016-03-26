@@ -122,18 +122,31 @@ class SimpleGraph(object):
         else:
             raise ValueError('Node does not exist')
 
-    def shortest_path_dijkstra(self, starting_node):
-        unique = count()
+    def shortest_path_dijkstra(self, node1, node2):
+        unique = 1
         visited = set()
-        heap = [(0, None, starting_node)]
+        heap = [(0, unique, node1, (None,))]
         while heap:
-            (cumulative, _, node)= heappop(heap)
+            cumulative, unique, node, path = heappop(heap)
             if node not in visited:
                 visited.add(node)
-                yield node, cumulative
+                if node2 == node:
+                    path = (node2, path)
+                    pretty_path = []
+                    while True:
+                        try:
+                            current, path = path
+                            pretty_path.append(current)
+                    # return path, cumulative
+                        except ValueError:
+                            return pretty_path[::-1]
                 for neighbor, edge_weight in self.graph_dict[node].items():
-                    heappush(heap, (cumulative + edge_weight, next(unique), neighbor))
+                    unique += 1
+                    heappush(heap, (cumulative + edge_weight, unique, neighbor, (node, path)))
 
+
+    def bellman_ford_path():
+        pass
 
 
 if __name__ == '__main__':
