@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Simple Graph structure."""
 import collections
+from itertools  import count
+from heapq import heappop, heappush
 
 
 class SimpleGraph(object):
@@ -120,6 +122,51 @@ class SimpleGraph(object):
         else:
             raise ValueError('Node does not exist')
 
+    def shortest_path_dijkstra(self, node1, node2):
+        unique = 1
+        visited = set()
+        heap = [(0, unique, node1, (None,))]
+        while heap:
+            cumulative, unique, node, path = heappop(heap)
+            if node not in visited:
+                visited.add(node)
+                if node2 == node:
+                    path = (node2, path)
+                    pretty_path = []
+                    while True:
+                        try:
+                            current, path = path
+                            pretty_path.append(current)
+                    # return path, cumulative
+                        except ValueError:
+                            return pretty_path[::-1]
+                for neighbor, edge_weight in self.graph_dict[node].items():
+                    unique += 1
+                    heappush(heap, (cumulative + edge_weight, unique, neighbor, (node, path)))
+
+
+    def floyd_path(self):
+        dist = {}
+        for node in self.graph_dict:
+            dist[node] = {}
+            dist[node][node] = 0
+        for node1 in dist:
+            for node2 in dist:
+                try:
+                    dist[node1][node2] = self.graph_dict[node1][node2]
+                except KeyError:
+                    pass
+        for k in self.graph_dict:
+            for i in self.graph_dict:
+                for j in self.graph_dict:
+                    try:
+                        if dist[i][j] > dist[i][k] + dist[k][j]:
+                            dist[i][j] = dist[i][k] + dist[k][j]
+                    except KeyError:
+                        pass
+        import pdb; pdb.set_trace()
+
+
 
 if __name__ == '__main__':
     obj = SimpleGraph()
@@ -138,3 +185,4 @@ if __name__ == '__main__':
     obj.add_edge('C', 'F', 1)
     obj.add_edge('D', 'G', 7)
     obj.add_edge('G', 'H')
+    obj.floyd_path()

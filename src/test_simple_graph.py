@@ -18,11 +18,17 @@ def fixture_graph():
     obj.add_edge('A', 'B', 45000000)
     obj.add_edge('A', 'C', .5)
     obj.add_edge('A', 'D', 8)
-    obj.add_edge('C', 'E', 0)
+    obj.add_edge('C', 'E', 5)
     obj.add_edge('C', 'F', 1)
+    obj.add_edge('F', 'E', 2)
     obj.add_edge('D', 'G', 7)
     obj.add_edge('G', 'H')
     return obj
+
+
+def test_dijkstra(fixture_graph):
+    """Test dijkstra method implementation."""
+    assert list(fixture_graph.shortest_path_dijkstra('A', 'E')) == ['A', 'C', 'F', 'E']
 
 
 def test_breadth(fixture_graph):
